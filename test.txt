@@ -1,6 +1,30 @@
+@myApp.route('/')
+def home():
+    return "i'm running"
+    
 
-    if request.method= ="POST":
+
+
+@myApp.route('/imagetotext',methods=['GET', 'POST'])
+def iamgetotext():
+    if request.method=="POST":
         file=request.files["file"]
         # return file.filename
         nrandom = random.randint(0,99999999)
-return "Method not allow"
+        url=docs.save(file,'imgs/',str(nrandom)+file.filename)
+        mime =magic.from_file(f"{project_dir}/upload/{url}", mime=True)
+        print(mime)
+        mimeType=["image/jpg","image/png","image/gif"]
+        
+        if mime in mimeType:
+            print("yes")
+            url=f"{project_dir}/upload/{url}"
+            
+            # return url
+            response=main(url)
+            return response
+        else:
+            return "invalid mime_type"
+        # return render_template("index.html",result="",response=response,url=url.replace("/var/www/html/","http://159.223.173.252/"))
+    else:
+        return "Method not allow"
