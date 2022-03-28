@@ -1,5 +1,5 @@
 
-    if request.method=="POST":
+    if request.method= ="POST":
         file=request.files["file"]
         # return file.filename
         nrandom = random.randint(0,99999999)
